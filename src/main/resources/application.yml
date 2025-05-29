@@ -1,0 +1,38 @@
+---
+spring:
+  application.name: ddd-kotlin
+  messages.basename: messages-validation, messages
+  jackson.serialization:
+    indent-output: true
+  datasource:
+    driver-class-name: ${JDBC_DRIVER:org.h2.Driver}
+    url: ${JDBC_URL:jdbc:h2:mem:maindb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE}
+    username: ${JDBC_USERNAME:}
+    password: ${JDBC_PASSWORD:}
+  sql:
+    init:
+      mode: never
+      schema-locations: classpath:schema/schema.sql
+      data-locations: classpath:schema/data.sql
+
+logging.config: ${LOGGING_CONFIG_XML:classpath:logback-spring.xml}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints.web:
+    exposure.include: ${MANAGEMENT_EXPOSURE:health,info}
+
+sample:
+  mail.enabled: ${MAIL_ENABLED:true}
+
+---
+spring:
+  config.activate.on-profile: "dev"
+
+spring.sql.init.mode: always
+
+management.endpoints.web.exposure.include: "*"
+
+sample.mail.enabled: false

@@ -1,0 +1,9 @@
+.gradle
+.kotlin
+.settings
+.classpath
+.project
+/bin
+/build
+.vscode/*
+!.vscode/launch.json

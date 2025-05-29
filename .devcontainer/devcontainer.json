@@ -1,0 +1,49 @@
+// https://aka.ms/devcontainer.json
+{
+	"name": "ddd-kotlin",
+	"dockerComposeFile": [
+		"./compose.yml"
+	],
+	"service": "workspace-backend",
+	"shutdownAction": "stopCompose",
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.organizeImports": "always"
+				},
+				"java.jdt.ls.java.home": "/docker-java-home",
+				"java.import.gradle.java.home": "/docker-java-home",
+				"kotlin.codeStyle": "official",
+				"kotlin.compiler.jvm.target": "21",
+				"kotlin.useOldBackend": false,
+				"kotlin.js.v8.flags": [],
+				"kotlin.languageServer.enabled": true,
+				"kotlin.languageServer.debugAttach.enabled": true,
+				"gradle.nestedProjects": true,
+				"files.associations": {
+					"*.kt": "kotlin",
+					"*.kts": "kotlin"
+				}
+			},
+			"extensions": [
+				"mhutchie.git-graph",
+				"mikestead.dotenv",
+				"EditorConfig.EditorConfig",
+				"redhat.vscode-yaml",
+				"fwcd.kotlin",
+				"vscjava.vscode-gradle",
+				"vscjava.vscode-java-pack",
+				"vscjava.vscode-spring-boot-dashboard",
+				"pivotal.vscode-spring-boot",
+				"pivotal.vscode-boot-dev-pack"
+			]
+		}
+	},
+	"workspaceFolder": "/home/vscode/workspace",
+	"forwardPorts": [
+		8080
+	],
+	"remoteUser": "vscode"
+}

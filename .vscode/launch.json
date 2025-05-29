@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "kotlin",
+            "name": "Run ddd-kotlin",
+            "request": "launch",
+            "projectRoot": "${workspaceFolder}",
+            "mainClass": "sample.ApplicationKt --spring.profiles.active=dev",
+            "vmArguments": "-Xmx128m",
+            "internalConsoleOptions": "openOnSessionStart",
+        }
+    ]
+}
