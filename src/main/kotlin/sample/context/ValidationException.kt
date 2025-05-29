@@ -20,46 +20,43 @@ class ValidationException(
         val warns: Warns
 ) : RuntimeException(warns.globalError().message) {
 
-    companion object {
-        @JvmStatic
-        fun of(warn: Warn): ValidationException =
-                ValidationException(Warns.builder().add(warn).build())
+        companion object {
+                fun of(warn: Warn): ValidationException =
+                        ValidationException(Warns.builder().add(warn).build())
 
-        @JvmStatic fun of(warns: Warns): ValidationException = ValidationException(warns)
+                fun of(warns: Warns): ValidationException = ValidationException(warns)
 
-        @JvmStatic
-        fun of(warnsBuilder: WarnsBuilder): ValidationException = of(warnsBuilder.build())
+                fun of(warnsBuilder: WarnsBuilder): ValidationException = of(warnsBuilder.build())
 
-        @JvmStatic
-        fun of(errors: Set<ConstraintViolation<Any>>): ValidationException {
-            val builder = Warns.builder()
-            errors.forEach { v -> builder.addField(v.propertyPath.toString(), v.message) }
-            return of(builder)
+                fun of(errors: Set<ConstraintViolation<Any>>): ValidationException {
+                        val builder = Warns.builder()
+                        errors.forEach { v ->
+                                builder.addField(v.propertyPath.toString(), v.message)
+                        }
+                        return of(builder)
+                }
+
+                fun of(message: String, vararg messageArgs: String): ValidationException =
+                        of(Warns.builder().add(message, *messageArgs).build())
+
+                fun of(message: String, messageArgs: List<String>): ValidationException =
+                        of(Warns.builder().add(message, messageArgs).build())
+
+                fun of(message: String): ValidationException =
+                        of(Warns.builder().add(message).build())
+
+                fun ofField(
+                        field: String,
+                        message: String,
+                        vararg messageArgs: String
+                ): ValidationException =
+                        of(Warns.builder().addField(field, message, *messageArgs).build())
+
+                fun ofField(
+                        field: String,
+                        message: String,
+                        messageArgs: List<String>
+                ): ValidationException =
+                        of(Warns.builder().addField(field, message, messageArgs).build())
         }
-
-        @JvmStatic
-        fun of(message: String, vararg messageArgs: String): ValidationException =
-                of(Warns.builder().add(message, *messageArgs).build())
-
-        @JvmStatic
-        fun of(message: String, messageArgs: List<String>): ValidationException =
-                of(Warns.builder().add(message, messageArgs).build())
-
-        @JvmStatic
-        fun of(message: String): ValidationException = of(Warns.builder().add(message).build())
-
-        @JvmStatic
-        fun ofField(
-                field: String,
-                message: String,
-                vararg messageArgs: String
-        ): ValidationException = of(Warns.builder().addField(field, message, *messageArgs).build())
-
-        @JvmStatic
-        fun ofField(
-                field: String,
-                message: String,
-                messageArgs: List<String>
-        ): ValidationException = of(Warns.builder().addField(field, message, messageArgs).build())
-    }
 }
